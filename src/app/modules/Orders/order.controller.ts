@@ -18,7 +18,7 @@ const createOrder=async(req:Request,res:Response)=>{
     catch(err){
         res.status(200).json({
             success:false,
-            message:"Something went wrong",
+            message:"user already exist",
             error:err
         })
     }
@@ -30,7 +30,7 @@ const getAllData = async(req:Request,res:Response)=>{
 
         const {email} = req.query;
         if(email){
-            const result =await orderServices.getOrderByEmail(email as string)
+            const result =await orderServices.getAllOrderIntoDB(email as string)
             
             res.status(200).json({
                 success:true,
@@ -41,7 +41,7 @@ const getAllData = async(req:Request,res:Response)=>{
         else{
 
             const result = await orderServices.getAllOrderIntoDB()
-        res.status(200).json({
+            res.status(200).json({
             success:true,
             message:"Orders fetched successfully!",
             data:result

@@ -18,3 +18,4 @@ export type Products = {
     variants:Variants[];
     inventory:Inventory;
   }
+  

@@ -29,7 +29,7 @@ const getProduct = async (req: Request, res: Response) => {
   try {
     const {searchTerm} = req.query
     if (searchTerm) {
-        const result = await productServices.findDataByQuery(searchTerm as string)
+        const result = await productServices.getProductIntoDB(searchTerm as string)
         res.status(200).json({
             success: true,
             message: `Products matching search term ${searchTerm} fetched successfully!`,
