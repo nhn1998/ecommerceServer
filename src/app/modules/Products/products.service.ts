@@ -35,10 +35,26 @@ const DeleteProductIntoDB = async(id:string)=>{
     const result = await productModel.deleteOne({_id:id})
     return result
 }
+
+// search query 
+const findDataByQuery= async(searchTerm:string)=>{
+    const result = await productModel.find({
+        $or: [
+            { name: { $regex: searchTerm, $options: 'i' } },          
+            { description: { $regex: searchTerm, $options: 'i' } },   
+            { category: { $regex: searchTerm, $options: 'i' } },      
+            { tags: { $regex: searchTerm, $options: 'i' } },       
+          ],
+    })
+    return result
+}
+
+
 export const productServices = {
     createProductIntoDB,
     getProductIntoDB,
     getSingleProductIntoDB,
     updateValueIntoDB,
-    DeleteProductIntoDB
+    DeleteProductIntoDB,
+    findDataByQuery
 }
