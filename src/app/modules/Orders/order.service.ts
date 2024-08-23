@@ -1,4 +1,3 @@
-import { productModel } from "../Products/products.model";
 import { Orders } from "./order.interface";
 import OrderSchemaModel from "./order.model";
 
@@ -14,7 +13,8 @@ const getAllOrderIntoDB = async () => {
 };
 // email query
 const getOrderByEmail = async(email:string)=>{
-    const result = await productModel.find({Email:email})
+    
+    const result = await OrderSchemaModel.find({email})
     return result
 }
 export const orderServices = {

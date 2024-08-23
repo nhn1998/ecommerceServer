@@ -29,9 +29,9 @@ const getAllData = async(req:Request,res:Response)=>{
     try{
 
         const {email} = req.query;
-        console.log(email)
         if(email){
             const result =await orderServices.getOrderByEmail(email as string)
+            
             res.status(200).json({
                 success:true,
                 message:"Orders fetched successfully for user email!",
