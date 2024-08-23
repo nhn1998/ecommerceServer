@@ -1,15 +1,18 @@
 import { Request, Response } from "express";
 import { productServices } from "./products.service";
+import productSchemaValidation from "./product.validation";
 
 // create product response
 const createProduct = async (req: Request, res: Response) => {
   try {
     const product = req.body;
+    // validation with zod
+    const ValidateData = productSchemaValidation.parse(product)
 
-    const result = await productServices.createProductIntoDB(product);
+    const result = await productServices.createProductIntoDB(ValidateData);
     res.status(200).json({
       success: true,
-      message: "Products create successfully",
+      message: "Products created successfully",
       data: result,
     });
   } catch (err) {
@@ -102,6 +105,7 @@ const DeleteProduct = async (req: Request, res: Response) => {
       message: "Student Deleted successfully",
       data: null,
     });
+    
   } catch (err) {
     res.status(500).json({
       success: false,
