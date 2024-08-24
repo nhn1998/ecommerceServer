@@ -8,5 +8,5 @@ export type Orders={
 }
 
 export interface ordersValidationModel extends Model<Orders> {
-    isUserExists(id:string,_id:string): Promise<Orders | null>
+    isUserExists(id:string): Promise<Orders | null>
  }

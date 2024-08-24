@@ -9,7 +9,6 @@ const OrderSchema=new Schema<Orders,ordersValidationModel>({
 })
 
 OrderSchema.statics.isUserExists=async function(id:string){
-    console.log(id)
     const existingUser = await OrderSchemaModel.findOne({productId:id})
     return existingUser
 }
