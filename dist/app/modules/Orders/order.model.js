@@ -8,24 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const config_1 = __importDefault(require("./app/config"));
-const app_1 = __importDefault(require("./app"));
-function main() {
+const mongoose_1 = require("mongoose");
+const OrderSchema = new mongoose_1.Schema({
+    email: { type: String, required: true },
+    productId: { type: String, required: true },
+    price: { type: Number, required: true },
+    quantity: { type: Number, required: true }
+});
+OrderSchema.statics.isUserExists = function (id) {
     return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield mongoose_1.default.connect(config_1.default.database_url);
-            app_1.default.listen(config_1.default.port, () => {
-                console.log(`Port is running app listening on port ${config_1.default.port}`);
-            });
-        }
-        catch (err) {
-            console.log(err);
-        }
+        const existingUser = yield OrderSchemaModel.findOne({ productId: id });
+        return existingUser;
     });
-}
-main();
+};
+const OrderSchemaModel = (0, mongoose_1.model)('Orders', OrderSchema);
+exports.default = OrderSchemaModel;

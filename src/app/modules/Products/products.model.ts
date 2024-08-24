@@ -22,7 +22,6 @@ const productSchema = new Schema<Products>({
 });
 
 productSchema.statics.isUserExists=async function(_id:string){
-    console.log(_id)
     const existingUser = await productModel.findOne({_id})
     return existingUser
 }

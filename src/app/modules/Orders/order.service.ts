@@ -10,7 +10,7 @@ const createOrderIntoDB = async (order: Orders) => {
 };
 
 // get all order
-const getAllOrderIntoDB = async (email:string) => {
+const getAllOrderIntoDB = async (email?:string) => {
     if(email){
         const result = await OrderSchemaModel.find({email})
     return result

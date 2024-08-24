@@ -8,7 +8,7 @@ const createProductIntoDB = async (product: Products) => {
 };
 
 // get all product query
-const getProductIntoDB = async (searchTerm: string) => {
+const getProductIntoDB = async (searchTerm?: string) => {
   if (searchTerm) {
     const result = await productModel.find({
       $or: [

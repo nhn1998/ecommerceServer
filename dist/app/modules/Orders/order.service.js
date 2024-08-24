@@ -12,20 +12,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const config_1 = __importDefault(require("./app/config"));
-const app_1 = __importDefault(require("./app"));
-function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield mongoose_1.default.connect(config_1.default.database_url);
-            app_1.default.listen(config_1.default.port, () => {
-                console.log(`Port is running app listening on port ${config_1.default.port}`);
-            });
-        }
-        catch (err) {
-            console.log(err);
-        }
-    });
-}
-main();
+exports.orderServices = void 0;
+const order_model_1 = __importDefault(require("./order.model"));
+const createOrderIntoDB = (order) => __awaiter(void 0, void 0, void 0, function* () {
+    if (yield order_model_1.default.isUserExists(order.productId)) {
+        throw new Error('user already exist');
+    }
+    const result = yield order_model_1.default.create(order);
+    return result;
+});
+// get all order
+const getAllOrderIntoDB = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    if (email) {
+        const result = yield order_model_1.default.find({ email });
+        return result;
+    }
+    else {
+        const result = yield order_model_1.default.find();
+        return result;
+    }
+});
+exports.orderServices = {
+    createOrderIntoDB,
+    getAllOrderIntoDB,
+};
