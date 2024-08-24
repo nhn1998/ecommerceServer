@@ -1,3 +1,4 @@
+import { Model } from "mongoose";
 
 export type Variants={
     type: string;
@@ -19,3 +20,6 @@ export type Products = {
     inventory:Inventory;
   }
   
+  export interface productValidationModel extends Model<Products> {
+    isUserExists(_id:string): Promise<Products | null>
+ }

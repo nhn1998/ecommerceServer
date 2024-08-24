@@ -21,4 +21,10 @@ const productSchema = new Schema<Products>({
   inventory: { type: inventorySchema, required: true },
 });
 
+productSchema.statics.isUserExists=async function(_id:string){
+    console.log(_id)
+    const existingUser = await productModel.findOne({_id})
+    return existingUser
+}
+
 export const productModel = model<Products>("productModel", productSchema);
